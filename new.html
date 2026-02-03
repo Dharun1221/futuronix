@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FUTURONIX'26 | ECE Department</title>
+    <link rel="icon" href="WhatsApp Image 2026-02-02 at 10.46.26 PM.jpeg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;600&display=swap"
+        rel="stylesheet">
+
+
+    <script>
+
+
+        const eventDate = new Date("2026-02-19T10:00:00+05:30").getTime();
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+
+            if (distance <= 0) return;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = String(days).padStart(2, "0");
+            document.getElementById("hours").innerText = String(hours).padStart(2, "0");
+            document.getElementById("minutes").innerText = String(minutes).padStart(2, "0");
+            document.getElementById("seconds").innerText = String(seconds).padStart(2, "0");
+        }
+        setInterval(updateCountdown, 1000);
+    </script>
+
+    <style>
+        /* ✅ GLOBAL FIXED BACKGROUND */
+        body {
+
+
+            background:
+                linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
+                url('https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?auto=format&fit=crop&q=80&w=2000');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .over {
+            font-size: 80%;
+        }
+
+        @media (min-width: 768px) {
+            .over {
+                font-size: 50%;
+            }
+        }
+
+
+        /* REMOVE HERO BG */
+        .ece-hero {
+            background: transparent;
+        }
+
+        .orbitron {
+            font-family: 'Orbitron', sans-serif;
+            padding-top: 3%;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .neon-text {
+            color: hsl(190, 100%, 51%);
+            text-shadow: 0 0 10px #00f3ff;
+        }
+
+        .text-lg {
+            font-weight: bolder;
+            font-size: 50%;
+        }
+
+        .orbit {
+            color: lightskyblue;
+            font-family: Georgia;
+            font-size: large;
+        }
+
+        .oorbit {
+            color: aquamarine;
+        }
+
+        .text-xs {
+            font-weight: bolder;
+        }
+
+        a {
+            font-size: 100%;
+        }
+
+        .font {
+            font-size: 100%;
+            font-family: serif;
+            letter-spacing: 3px;
+        }
+
+        @media (min-width: 768px) {
+            a {
+                font-size: 200%;
+            }
+
+            .font {
+                font-size: 150%;
+                letter-spacing: 20px;
+            }
+        }
+
+        .texti {
+            color: aliceblue;
+        }
+
+        nav {
+            min-height: 56px;
+        }
+
+        .rampo {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+        body {
+            padding-top: 0%;
+            margin-top: 0%;
+        }
+
+        /* Hide default cursor */
+        body {
+            cursor: none;
+        }
+
+        /* Main Cursor Dot */
+        .tech-cursor {
+            width: 12px;
+            height: 12px;
+            background: #00f3ff;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            box-shadow:
+                0 0 10px #00f3ff,
+                0 0 20px #00f3ff,
+                0 0 40px #00f3ff;
+            transform: translate(-50%, -50%);
+        }
+
+        .achu {
+            font-family: cursive;
+            font-size: large;
+        }
+
+        /* Trail Particles */
+        .cursor-trail {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: rgba(0, 243, 255, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.8);
+            animation: fadeOut 0.6s linear forwards;
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            to {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+        }
+
+        /* Disable on mobile */
+        @media (max-width: 768px) {
+
+            .tech-cursor,
+            .cursor-trail {
+                display: none;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+    <!-- NAVBAR -->
+    <nav
+        class="w-full bg-gradient-to-r from-[#020617]/80 via-[#020617]/80 to-[#020617]/80 border-b border-cyan-500/30 sticky top-0 z-50 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 py-4">
+
+            <!-- Mobile Layout -->
+            <div class="flex md:hidden items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <img src="images-removebg-preview.png" alt="VSB Logo" class="h-10 w-14 bg-white rounded-lg p-1">
+                    <img src="WhatsApp_Image_2026-01-31_at_12.05.58_PM-removebg-preview.png" alt="ECE Logo"
+                        class="h-10 w-14 bg-white rounded-lg p-1">
+                </div>
+                <div class="flex-1 text-center px-2">
+                    <h1 class="neon-text text-sm font-bold">  VSB College of Engineering Technical Campus</h1>
+                     <p class="text-sm text-gray-300">(Autonomous Institution) – Coimbatore</p>
+                </div>
+            </div>
+
+            <!-- Desktop Layout -->
+            <div class="hidden md:flex items-center gap-4">
+                <div class="flex-shrink-0">
+                    <img src="images-removebg-preview.png" alt="VSB Logo" class="h-14 w-20 bg-white rounded-lg p-1">
+                </div>
+                <div class="flex-shrink-0">
+                    <img src="WhatsApp_Image_2026-01-31_at_12.05.58_PM-removebg-preview.png" alt="ECE Logo"
+                        class="h-14 w-20 bg-white rounded-lg p-1">
+                </div>
+                <div class="flex-shrink-0">
+                    <img src="WhatsApp_Image_2026-01-31_at_12.07.50_PM-removebg-preview.png" alt="Dept Logo"
+                        class="h-14 w-20 bg-white rounded-lg p-1">
+                </div>
+
+                <div class="flex-1 text-center">
+                    <h1 class="neon-text text-2xl md:text-3xl font-bold tracking-wide">
+                        VSB College of Engineering Technical Campus
+                    </h1>
+                    <p class="text-sm text-gray-300">(Autonomous Institution) – Coimbatore</p>
+                </div>
+
+                <div class="flex items-center gap-6 text-xs uppercase font-bold tracking-widest">
+                    <a href="#rules" class="achu hover:text-cyan-400 transition">Norms</a>
+                    <a href="#events" class="achu hover:text-cyan-400 transition">Events</a>
+                    <a href="#contact" class="achu hover:text-cyan-400 transition">Contact</a>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div class="flex md:hidden justify-center gap-4 mt-3 text-xs uppercase font-bold">
+                <a href="#rules" class="hover:text-cyan-400 transition">Norms</a>
+                <a href="#events" class="hover:text-cyan-400 transition">Events</a>
+                <a href="#contact" class="hover:text-cyan-400 transition">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="overflow-hidden">
+        <marquee>
+            <h1 class="font">A NATIONAL LEVEL TECHNICAL SYMPOSIUM</h1>
+        </marquee>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="ece-hero h-screen flex flex-col items-center  text-center px-4">
+
+        <h1 class="orbitron text-4xl md:text-8xl font-black mb-2">
+            FUTUR<span class="neon-text">ONIX'26</span>
+        </h1>
+
+        <p class="rampo text-sm md:text-4xl tracking-[0.2em] md:tracking-[0.4em] mb-4 md:mb-8 text-gray-300">
+            DEPARTMENT OF ECE
+        </p>
+
+        <p class="rampo text-sm md:text-4xl tracking-[0.2em] md:tracking-[0.4em] mb-4 md:mb-8 text-gray-300">19/02/2026
+            | 10:00a.m</p>
+
+
+        <div class="flex flex-row space-x-2 md:space-x-4 orbitron mb-10">
+            <div class="glass p-2 md:p-4 rounded-lg text-center"><span id="days"
+                    class="text-xl md:text-3xl block">00</span><span class="text-xs">DAYS</span></div>
+            <div class="glass p-2 md:p-4 rounded-lg text-center"><span id="hours"
+                    class="text-xl md:text-3xl block">00</span><span class="text-xs">HRS</span></div>
+            <div class="glass p-2 md:p-4 rounded-lg text-center"><span id="minutes"
+                    class="text-xl md:text-3xl block">00</span><span class="text-xs">MIN</span></div>
+            <div class="glass p-2 md:p-4 rounded-lg text-center"><span id="seconds"
+                    class="text-xl md:text-3xl block">00</span><span class="text-xs">SEC</span></div>
+        </div>
+
+        <a href="#contact"
+            class="orbitron px-4 md:px-8 py-3 bg-cyan-500 text-black font-bold hover:bg-white transition-all text-sm md:text-base">
+            ENTRY/HEAD Rs.250 [1Tech+1non-tech+Food]
+        </a>
+
+        <div class="overflow-hidden w-full">
+            <marquee>
+                <h1 class="font"> THEME :"FUTURE IN SIGHT,INNOVATION IN FLIGHT"</h1>
+            </marquee>
+        </div>
+    </section>
+
+    <!-- RULES -->
+    <section id="rules" class="max-w-5xl mx-auto px-6 py-16 text-gray-200">
+        <div class="text-center mb-10">
+            <h2 class="text-3xl md:text-4xl font-bold tracking-wide text-cyan-400">GENERAL RULES & REGULATIONS</h2>
+            <p class="text-sm mt-2 text-gray-400 italic">(Applicable to All Events)</p>
+            <div class="mt-4 h-1 w-24 mx-auto bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full"></div>
+        </div>
+
+        <div class="bg-[#020617]/80 border border-cyan-500/30 rounded-xl p-8 shadow-lg">
+            <ol class="list-decimal list-inside space-y-4 text-base md:text-lg leading-relaxed">
+                <li>All participants must carry a valid college ID card.</li>
+                <li>Register a Tech Event and get a Non-Tech Event as COMPLEMENTARY.</li>
+                <li>Prior registration is mandatory for all events.</li>
+                <li>Participants should report 15 minutes before event.</li>
+                <li>Team size must follow event rules.</li>
+                <li>No malpractice or misconduct.</li>
+                <li>No offensive content.</li>
+                <li>No on the spot Registrations for only Tech events .</li>
+                <li>Judges’ and Co-ordinators decision is final.</li>
+                <li>Organizers may modify rules.</li>
+            </ol>
+        </div>
+    </section>
+    <section id="events" class="py-20 px-6 max-w-7xl mx-auto">
+        <h2 class="orbit text-3xl text-center mb-16 neon-text uppercase">TECHNO TEASE</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <a href="https://forms.gle/vCxPLgpMBC4uQpNn6" target="_blank" class="block">
+                <div class="rounded-2xl overflow-hidden glass hover:border-cyan-500 transition-all cursor-pointer">
+                    <img src="https://media.istockphoto.com/id/1368098469/photo/multi-racial-group-of-people-working-with-paperwork-on-a-board-room-table-at-a-business.jpg?s=612x612&w=0&k=20&c=4QHkMIKyvTxLr3VrHnclZYXus1N56M6ZhM9-wOOiF7E="
+                        alt="VLSI" class="h-48 w-full object-cover">
+                    <div class="p-6">
+                        <h3 class="orbitron text-xl font-bold mb-2">Tech Script</h3>
+                        <p class="over decoration-emerald-950">
+                            Paper Presentation (Tech script) provides a platform for participants to present innovative
+                            ideas.
+                        </p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://forms.gle/MgHZBzsw1mUe3MDi9" target="_blank" class="block">
+                <div class="rounded-2xl overflow-hidden glass hover:border-cyan-500 transition-all">
+                    <img src="https://img.freepik.com/premium-photo/highlighted-error-text-colorful-code-background-representing-software-problems-system-attack-concept-3d-rendering_670147-117872.jpg?semt=ais_hybrid&w=740&q=80"
+                        alt="VLSI" class="h-48 w-full object-cover">
+                    <div class="p-6">
+                        <h3 class="orbitron text-xl font-bold mb-2">Hammex</h3>
+                        <p class="over decoration-emerald-950">Error Coding (Hammex) focuses on identifying,
+                            understanding, and
+                            fixing errors in code..
+                        </p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://forms.gle/JwxTBiEJC59dob5z6" target="_blank" class="block">
+                <div class="rounded-2xl overflow-hidden glass hover:border-cyan-500 transition-all">
+                    <img src="https://cdn.wallpapersafari.com/43/48/9Rabej.jpg" alt="VLSI"
+                        class="h-48 w-full object-cover">
+                    <div class="p-6">
+                        <h3 class="orbitron text-xl font-bold mb-2">Innovation Expo</h3>
+                        <p class="over decoration-emerald-950">Project Expo (Innovative Expo) provides a platform for
+                            participants to showcase innovative projects.</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://forms.gle/X6x27qE3cFYrWkB87" target="_blank" class="block">
+                <div class="rounded-2xl overflow-hidden glass hover:border-cyan-500 transition-all">
+                    <img src="https://img.freepik.com/free-photo/motherboard-circuit-background_23-2151733763.jpg"
+                        alt="VLSI" class="h-48 w-full object-cover">
+                    <div class="p-6">
+                        <h3 class="orbitron text-xl font-bold mb-2">Pulse Patrol</h3>
+                        <p class="over decoration-emerald-950">Circuit Debugging is a hands-on technical event where
+                            participants
+                            analyze faulty electronic circuits to identify and rectify errors.</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://forms.gle/2Z7jJYJBNSWXmoxb6" target="_blank" class="block">
+                <div class="rounded-2xl overflow-hidden glass hover:border-cyan-500 transition-all">
+                    <img src="https://media.istockphoto.com/id/1398462038/photo/online-exam-or-test.jpg?s=612x612&w=0&k=20&c=hvaH_2oA0Dm-tpQ8T5JBF_39QF3xhpic38Yi2AngaCE="
+                        alt="VLSI" class="h-48 w-full object-cover">
+                    <div class="p-6">
+                        <h3 class="orbitron text-xl font-bold mb-2">Mind The Tech</h3>
+                        <p class="over decoration-emerald-950">Quiz tests participants, technical knowledge, logical
+                            reasoning,
+                            and quick thinking in an engaging competitive format.</p>
+                    </div>
+                </div>
+            </a>
+
+    </section>
+
+    <section id="events" class="py-20 px-6 max-w-7xl mx-auto">
+        <h2 class="orbit text-3xl text-center mb-16 neon-text uppercase">Techno Fun</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+            <a href="https://forms.gle/QTeuGb67d72SyY9R9" target="_blank" class="block">
+                <div class="rounded-2xl overflow-hidden glass hover:border-cyan-500 transition-all">
+                    <img src="WhatsApp Image 2026-02-01 at 10.45.26 PM.jpeg" alt="VLSI"
+                        class="h-48 w-full object-cover">
+                    <div class="p-6">
+                        <h3 class="orbitron text-xl font-bold mb-2">AD Mad Show</h3>
+                        <p class="over decoration-emerald-950">In Advertising, participants showcase their creativity by
+                            presenting short and engaging advertisements.</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://forms.gle/gtvWMsXZhdtZHduo8" target="_blank" class="block">
+                <div class="rounded-2xl overflow-hidden glass hover:border-cyan-500 transition-all">
+                    <img src="https://t4.ftcdn.net/jpg/08/34/13/71/360_F_834137131_R1eK8OHPLVA2XQbRt2IKueQW5b6CZVu6.jpg"
+                        alt="VLSI" class="h-48 w-full object-cover">
+                    <div class="p-6">
+                        <h3 class="orbitron text-xl font-bold mb-2">Echoes</h3>
+                        <p class="over decoration-emerald-950">Singing, musical instruments, and Storytelling provide a
+                            platform
+                            for participants to showcase their talent, creativity, and expression.</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://forms.gle/E3nUnSUcLYVVPXkP8" target="_blank" class="block">
+                <div class="rounded-2xl overflow-hidden glass hover:border-cyan-500 transition-all">
+                    <img src="WhatsApp Image 2026-02-01 at 10.14.24 PM.jpeg" alt="VLSI"
+                        class="h-48 w-full object-cover">
+                    <div class="p-6">
+                        <h3 class="orbitron text-xl font-bold mb-2">Insta LoL</h3>
+                        <p class="over decoration-emerald-950">creative and entertaining event where participants design
+                            original
+                            memes using images and captions.</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://forms.gle/PLgptSkfkTj8woSv7" target="_blank" class="block">
+                <div class="rounded-2xl overflow-hidden glass hover:border-cyan-500 transition-all">
+                    <img src="https://cdn.wallpapersafari.com/91/94/YFje8r.jpg" alt="VLSI"
+                        class="h-48 w-full object-cover">
+                    <div class="p-6">
+                        <h3 class="orbitron text-xl font-bold mb-2">Lost Loot</h3>
+                        <p class="over decoration-emerald-950">exciting team-based event that tests participants
+                            ,problem-solving
+                            skills, logical thinking, and teamwork.</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://forms.gle/Jy2qWkauTHnrAaT88" target="_blank" class="block">
+                <div class="rounded-2xl overflow-hidden glass hover:border-cyan-500 transition-all">
+                    <img src="WhatsApp Image 2026-02-01 at 10.57.53 PM.jpeg" alt="VLSI"
+                        class="h-48 w-full object-cover">
+                    <div class="p-6">
+                        <h3 class="orbitron text-xl font-bold mb-2">Flash Point</h3>
+                        <p class="over decoration-emerald-950">It encourages visual storytelling, creativity, and
+                            technical
+                            skills while focusing on composition, lighting, and emotion.</p>
+                    </div>
+                </div>
+            </a>
+
+    </section>
+
+
+    <!-- <section id="register" class="py-20 bg-[#0a0a0a]">
+        <div class="max-w-xl mx-auto glass p-10 rounded-3xl text-center">
+            <h2 class="orbitron text-3xl mb-4">ORGANIZERS</h2>
+            <p class="text-gray-400 mb-8">Fill in your details to participate in Vidyutrenz '26</p>
+            <form class="space-y-4 text-left">
+                <input type="text" placeholder="Student Name" class="w-full bg-white/5 border border-white/10 p-3 rounded-lg focus:outline-none focus:border-cyan-500">
+                <input type="text" placeholder="Year & Department" class="w-full bg-white/5 border border-white/10 p-3 rounded-lg focus:outline-none focus:border-cyan-500">
+                <button class="w-full py-4 bg-cyan-600 font-bold orbitron hover:bg-cyan-400 transition-colors">SUBMIT</button>
+            </form>
+        </div>
+    </section> -->
+
+    <!-- ORGANISING COMMITTEE -->
+    <section id="contact" class="py-14  border-t border-white/10">
+        <div class="max-w-6xl mx-auto text-center px-4 space-y-10">
+
+            <h3 class="orbitron text-2xl tracking-widest text-cyan-400 neon-text">
+                ORGANISING COMMITTEE
+            </h3>
+
+            <!-- STUDENT COORDINATORS -->
+            <div>
+                <h4 class="orbitron text-lg mb-6 text-gray-300">
+                    🎓 Student Coordinators
+                </h4>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                    <div class="glass p-6 rounded-2xl hover:shadow-[0_0_20px_#00f3ff] transition-all">
+                        <p class="font-bold text-lg">DHARUNRAJ S</p>
+                        <a href="tel:+918122667041"
+                            class="flex justify-center items-center gap-2 mt-2 text-cyan-400 hover:text-white">
+                            📱 +91 8122667041
+                        </a>
+                        <a href="https://wa.me/918122667041" target="_blank"
+                            class="inline-flex items-center gap-2 mt-3 text-green-400 hover:text-white">
+                            💬 WhatsApp
+                        </a>
+                    </div>
+
+                    <div class="glass p-6 rounded-2xl hover:shadow-[0_0_20px_#00f3ff] transition-all">
+                        <p class="font-bold text-lg">YOGESHWARAN S</p>
+                        <a href="tel:+919360442947"
+                            class="flex justify-center items-center gap-2 mt-2 text-cyan-400 hover:text-white">
+                            📱 +91 9360442947
+                        </a>
+                        <a href="https://wa.me/919360442947" target="_blank"
+                            class="inline-flex items-center gap-2 mt-3 text-green-400 hover:text-white">
+                            💬 WhatsApp
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- FACULTY COORDINATORS -->
+            <div>
+                <h4 class="orbitron text-lg mb-6 text-gray-300">
+                    👨‍🏫 Faculty Coordinators
+                </h4>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                    <div class="glass p-6 rounded-2xl hover:shadow-[0_0_20px_#00f3ff] transition-all">
+                        <p class="font-bold text-lg">Mrs G JEYALAKSHMI</p>
+                        <p class="text-gray-400 mt-1">Assitant Professor, ECE</p>
+                        <a href="tel:+919840559177"
+                            class="flex justify-center items-center gap-2 mt-2 text-cyan-400 hover:text-white">
+                            📱 +91 9840559177
+                        </a>
+                    </div>
+
+                    <div class="glass p-6 rounded-2xl hover:shadow-[0_0_20px_#00f3ff] transition-all">
+                        <p class="font-bold text-lg">Mrs K KALAIVANI</p>
+                        <p class="text-gray-400 mt-1">Assistant Professor, ECE</p>
+                        <a href="tel:+918300035675"
+                            class="flex justify-center items-center gap-2 mt-2 text-cyan-400 hover:text-white">
+                            📱 +91 8300035675
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- BROCHURE + CONTACT -->
+            <div class="flex flex-col md:flex-row justify-center gap-6 pt-6">
+
+                <!-- DOWNLOAD BROCHURE -->
+                <a href="WhatsApp Image 2026-01-31 at 2.49.13 PM.jpeg" download
+                    class="orbitron px-6 py-3 bg-cyan-500 text-black font-bold rounded-xl hover:bg-white hover:shadow-[0_0_25px_#00f3ff] transition-all">
+                    📄 Download Brochure
+                </a>
+
+                <!-- WHATSAPP CONTACT -->
+                <!-- <a href="https://wa.me/919XXXXXXXXX" target="_blank"
+               class="orbitron px-6 py-3 bg-green-500 text-black font-bold rounded-xl
+                      hover:bg-white hover:shadow-[0_0_25px_#25D366] transition-all">
+                💬 Contact via WhatsApp
+            </a> -->
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- LOCATION + UI DEVELOPERS -->
+    <section class="py-14 border-t border-white/10">
+        <div class="max-w-6xl mx-auto px-4 space-y-12 text-center">
+
+            <!-- GOOGLE MAPS -->
+            <div>
+                <h3 class="orbitron text-2xl mb-6 text-cyan-400 neon-text">
+                    📍 EVENT LOCATION
+                </h3>
+
+                <div class="glass rounded-3xl overflow-hidden hover:shadow-[0_0_30px_#00f3ff] transition-all">
+                    <iframe
+                        src="https://www.google.com/maps?q=VSB+College+of+Engineering+Technical+Campus,+Coimbatore&output=embed"
+                        width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy">
+                    </iframe>
+                </div>
+
+                <p class="mt-4 text-cyon-100 tracking-wide">
+                    VSB College of Engineering Technical Campus, Coimbatore
+                </p>
+            </div>
+
+            <!-- UI DEVELOPERS -->
+            <div>
+                <h3 class="orbitron text-2xl mb-6 text-cyan-400 neon-text">
+                    💻 UI DEVELOPERS
+                </h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+
+                    <div class="glass p-6 rounded-2xl hover:shadow-[0_0_20px_#00ffea] transition-all">
+                        <p class="text-lg font-bold">DHARUNRAJ S</p>
+                        <p class="text-sm text-gray-400 mt-1">Frontend / UI Designer</p>
+                    </div>
+
+                    <div class="glass p-6 rounded-2xl hover:shadow-[0_0_20px_#00ffea] transition-all">
+                        <p class="text-lg font-bold">PRAVEENKUMAR K</p>
+                        <p class="text-sm text-gray-400 mt-1">Frontend / UI Designer</p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ALL YOUR EVENTS, CONTACT, MAP, FOOTER REMAIN SAME BELOW -->
+    <!-- I DID NOT DELETE ANY PART OF YOUR CODE -->
+
+    <footer class="py-10 text-center text-cyan-200 text-xs tracking-widest">
+        © 2026 FUTURONIX'26 – All Rights Reserved
+
+    </footer>
+    <!-- NEON CURSOR -->
+    <div class="tech-cursor"></div>
+    <div id="trail-container"></div>
+
+    <script>
+        const cursor = document.querySelector('.tech-cursor');
+        const trailContainer = document.getElementById('trail-container');
+
+        document.addEventListener('mousemove', (e) => {
+            // Main cursor follows smoothly
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+
+            // Create trail particle
+            const trail = document.createElement('div');
+            trail.className = 'cursor-trail';
+            trail.style.left = e.clientX + 'px';
+            trail.style.top = e.clientY + 'px';
+
+            trailContainer.appendChild(trail);
+
+            // Remove after animation
+            setTimeout(() => {
+                trail.remove();
+            }, 600);
+        });
+    </script>
+
+
+</body>
+
+</html>
