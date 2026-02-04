@@ -13,33 +13,43 @@
 
 
     <script>
-
-
         const eventDate = new Date("2026-02-19T10:00:00+05:30").getTime();
+        const elements = {};
+
         function updateCountdown() {
-            const now = new Date().getTime();
+            const now = Date.now();
             const distance = eventDate - now;
 
             if (distance <= 0) return;
 
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            const days = Math.floor(distance / 86400000);
+            const hours = Math.floor((distance % 86400000) / 3600000);
+            const minutes = Math.floor((distance % 3600000) / 60000);
+            const seconds = Math.floor((distance % 60000) / 1000);
 
-            document.getElementById("days").innerText = String(days).padStart(2, "0");
-            document.getElementById("hours").innerText = String(hours).padStart(2, "0");
-            document.getElementById("minutes").innerText = String(minutes).padStart(2, "0");
-            document.getElementById("seconds").innerText = String(seconds).padStart(2, "0");
+            elements.days.innerText = String(days).padStart(2, "0");
+            elements.hours.innerText = String(hours).padStart(2, "0");
+            elements.minutes.innerText = String(minutes).padStart(2, "0");
+            elements.seconds.innerText = String(seconds).padStart(2, "0");
         }
-        setInterval(updateCountdown, 1000);
+
+        window.addEventListener('DOMContentLoaded', () => {
+            elements.days = document.getElementById("days");
+            elements.hours = document.getElementById("hours");
+            elements.minutes = document.getElementById("minutes");
+            elements.seconds = document.getElementById("seconds");
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        });
     </script>
 
     <style>
         /* ✅ GLOBAL FIXED BACKGROUND */
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-
-
             background:
                 linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
                 url('https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?auto=format&fit=crop&q=80&w=2000');
@@ -51,13 +61,25 @@
             font-family: 'Rajdhani', sans-serif;
         }
 
+        /* Fade-in animation for sections */
+        section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .over {
             font-size: 80%;
         }
 
         @media (min-width: 768px) {
             .over {
-                font-size: 50%;
+                font-size: 100%;
             }
         }
 
@@ -135,14 +157,11 @@
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         }
 
-        body {
-            padding-top: 0%;
-            margin-top: 0%;
-        }
-
-        /* Hide default cursor */
+        /* Hide default cursor, remove top padding/margin */
         body {
             cursor: none;
+            padding-top: 0;
+            margin-top: 0;
         }
 
         /* Main Cursor Dot */
@@ -199,12 +218,369 @@
                 display: none;
             }
         }
+
+        /* Pulse animation for buttons */
+        @keyframes pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
+            }
+
+            50% {
+                box-shadow: 0 0 40px rgba(0, 243, 255, 0.8);
+            }
+        }
+
+        .entry-btn {
+            animation: pulse 2s infinite;
+        }
+
+        /* Card lift effect */
+        .event-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .event-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 243, 255, 0.3);
+        }
+
+        /* Countdown number animation */
+        .countdown-num {
+            transition: transform 0.3s ease;
+        }
+
+        .countdown-num.changed {
+            animation: flip 0.6s ease;
+        }
+
+        @keyframes flip {
+            0% {
+                transform: rotateX(0);
+            }
+
+            50% {
+                transform: rotateX(90deg);
+            }
+
+            100% {
+                transform: rotateX(0);
+            }
+        }
+
+        /* Glowing text effect */
+        @keyframes glow {
+
+            0%,
+            100% {
+                text-shadow: 0 0 10px #00f3ff, 0 0 20px #00f3ff;
+            }
+
+            50% {
+                text-shadow: 0 0 20px #00f3ff, 0 0 40px #00f3ff, 0 0 60px #00f3ff;
+            }
+        }
+
+        .neon-text {
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        /* Marquee modernization */
+        .scroll-text {
+            animation: scroll-left 20s linear infinite;
+        }
+
+        @keyframes scroll-left {
+            from {
+                transform: translateX(100%);
+            }
+
+            to {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* Rule item staggered animation */
+        .rule-item {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.5s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .rule-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .rule-item:hover {
+            transform: translateX(10px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 243, 255, 0.2);
+            border-color: rgba(0, 243, 255, 0.5);
+        }
+
+        .rule-number {
+            min-width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(0, 243, 255, 0.2), rgba(0, 243, 255, 0.1));
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #00f3ff;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+        }
+
+        /* Typewriter effect */
+        .typewriter {
+            overflow: hidden;
+            border-right: 0.15em solid #00f3ff;
+            white-space: nowrap;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0
+            }
+
+            to {
+                width: 100%
+            }
+        }
+
+        @keyframes blink-caret {
+
+            from,
+            to {
+                border-color: transparent
+            }
+
+            50% {
+                border-color: #00f3ff
+            }
+        }
+
+        /* Floating animation */
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* 3D tilt effect on hover */
+        .tilt-card {
+            transition: transform 0.5s ease;
+            transform-style: preserve-3d;
+        }
+
+        .tilt-card:hover {
+            transform: perspective(1000px) rotateX(5deg) rotateY(5deg) scale(1.05);
+        }
+
+        /* Animated gradient border */
+        @keyframes rotate-gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .gradient-border {
+            position: relative;
+            background: linear-gradient(270deg, #00f3ff, #ff00ff, #00f3ff);
+            background-size: 400% 400%;
+            animation: rotate-gradient 3s ease infinite;
+            padding: 2px;
+            border-radius: 1rem;
+        }
+
+        .gradient-border-inner {
+            background: #020617;
+            border-radius: 0.9rem;
+        }
+
+        /* Background particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            background: #00f3ff;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: rise 15s infinite ease-in;
+        }
+
+        @keyframes rise {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) scale(0);
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-100vh) scale(1);
+            }
+        }
+
+        /* Enhanced button hover */
+        .btn-enhanced {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-enhanced::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-enhanced:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* Loading screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #020617;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: fadeOutLoader 1s ease 2s forwards;
+        }
+
+        @keyframes fadeOutLoader {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        .loader {
+            width: 80px;
+            height: 80px;
+            border: 4px solid rgba(0, 243, 255, 0.1);
+            border-top-color: #00f3ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Stagger fade-in for list items */
+        .stagger-item {
+            opacity: 0;
+            transform: translateX(-30px);
+            animation: slideInLeft 0.6s ease forwards;
+        }
+
+        @keyframes slideInLeft {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .stagger-item:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .stagger-item:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .stagger-item:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .stagger-item:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .stagger-item:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        .stagger-item:nth-child(6) {
+            animation-delay: 0.6s;
+        }
+
+        .stagger-item:nth-child(7) {
+            animation-delay: 0.7s;
+        }
+
+        .stagger-item:nth-child(8) {
+            animation-delay: 0.8s;
+        }
+
+        .stagger-item:nth-child(9) {
+            animation-delay: 0.9s;
+        }
+
+        .stagger-item:nth-child(10) {
+            animation-delay: 1s;
+        }
     </style>
 
 </head>
 
 <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <div class="loader"></div>
+    </div>
 
+    <!-- Background Particles -->
+    <div class="particles" id="particles"></div>
 
     <!-- NAVBAR -->
     <nav
@@ -219,8 +595,7 @@
                         class="h-10 w-14 bg-white rounded-lg p-1">
                 </div>
                 <div class="flex-1 text-center px-2">
-                    <h1 class="neon-text text-sm font-bold">  VSB College of Engineering Technical Campus</h1>
-                     <p class="text-sm text-gray-300">(Autonomous Institution) – Coimbatore</p>
+                    <h1 class="neon-text text-sm font-bold">VSB ECE Technical Campus</h1>
                 </div>
             </div>
 
@@ -268,11 +643,13 @@
     </div>
 
     <!-- HERO SECTION -->
-    <section id="home" class="ece-hero h-screen flex flex-col items-center  text-center px-4">
+    <section id="home" class="ece-hero flex flex-col items-center text-center px-4 py-10 relative z-10">
 
-        <h1 class="orbitron text-4xl md:text-8xl font-black mb-2">
-            lala<span class="neon-text">ONIX'26</span>
-        </h1>
+        <div class="typewriter inline-block">
+            <h1 class="orbitron text-4xl md:text-8xl font-black mb-2">
+                FUTUR<span class="neon-text">ONIX'26</span>
+            </h1>
+        </div>
 
         <p class="rampo text-sm md:text-4xl tracking-[0.2em] md:tracking-[0.4em] mb-4 md:mb-8 text-gray-300">
             DEPARTMENT OF ECE
@@ -284,17 +661,17 @@
 
         <div class="flex flex-row space-x-2 md:space-x-4 orbitron mb-10">
             <div class="glass p-2 md:p-4 rounded-lg text-center"><span id="days"
-                    class="text-xl md:text-3xl block">00</span><span class="text-xs">DAYS</span></div>
+                    class="countdown-num text-xl md:text-3xl block">00</span><span class="text-xs">DAYS</span></div>
             <div class="glass p-2 md:p-4 rounded-lg text-center"><span id="hours"
-                    class="text-xl md:text-3xl block">00</span><span class="text-xs">HRS</span></div>
+                    class="countdown-num text-xl md:text-3xl block">00</span><span class="text-xs">HRS</span></div>
             <div class="glass p-2 md:p-4 rounded-lg text-center"><span id="minutes"
-                    class="text-xl md:text-3xl block">00</span><span class="text-xs">MIN</span></div>
+                    class="countdown-num text-xl md:text-3xl block">00</span><span class="text-xs">MIN</span></div>
             <div class="glass p-2 md:p-4 rounded-lg text-center"><span id="seconds"
-                    class="text-xl md:text-3xl block">00</span><span class="text-xs">SEC</span></div>
+                    class="countdown-num text-xl md:text-3xl block">00</span><span class="text-xs">SEC</span></div>
         </div>
 
         <a href="#contact"
-            class="orbitron px-4 md:px-8 py-3 bg-cyan-500 text-black font-bold hover:bg-white transition-all text-sm md:text-base">
+            class="entry-btn btn-enhanced orbitron px-4 md:px-8 py-3 bg-cyan-500 text-black font-bold hover:bg-white transition-all text-sm md:text-base rounded-lg relative">
             ENTRY/HEAD Rs.250 [1Tech+1non-tech+Food]
         </a>
 
@@ -306,7 +683,7 @@
     </section>
 
     <!-- RULES -->
-    <section id="rules" class="max-w-5xl mx-auto px-6 py-16 text-gray-200">
+    <section id="rules" class="max-w-5xl mx-auto px-6 pt-6 pb-16 text-gray-200">
         <div class="text-center mb-10">
             <h2 class="text-3xl md:text-4xl font-bold tracking-wide text-cyan-400">GENERAL RULES & REGULATIONS</h2>
             <p class="text-sm mt-2 text-gray-400 italic">(Applicable to All Events)</p>
@@ -315,16 +692,16 @@
 
         <div class="bg-[#020617]/80 border border-cyan-500/30 rounded-xl p-8 shadow-lg">
             <ol class="list-decimal list-inside space-y-4 text-base md:text-lg leading-relaxed">
-                <li>All participants must carry a valid college ID card.</li>
-                <li>Register a Tech Event and get a Non-Tech Event as COMPLEMENTARY.</li>
-                <li>Prior registration is mandatory for all events.</li>
-                <li>Participants should report 15 minutes before event.</li>
-                <li>Team size must follow event rules.</li>
-                <li>No malpractice or misconduct.</li>
-                <li>No offensive content.</li>
-                <li>No on the spot Registrations for only Tech events .</li>
-                <li>Judges’ and Co-ordinators decision is final.</li>
-                <li>Organizers may modify rules.</li>
+                <li class="stagger-item">🆔 All participants must carry a valid college ID card.</li>
+                <li class="stagger-item">🎁 Register a Tech Event and get a Non-Tech Event as COMPLEMENTARY.</li>
+                <li class="stagger-item">📝 Prior registration is mandatory for all events.</li>
+                <li class="stagger-item">⏰ Participants should report 15 minutes before event.</li>
+                <li class="stagger-item">👥 Team size must follow event rules.</li>
+                <li class="stagger-item">⚠️ No malpractice or misconduct.</li>
+                <li class="stagger-item">🚫 No offensive content.</li>
+                <li class="stagger-item">🎯 No on the spot Registrations for only Tech events .</li>
+                <li class="stagger-item">⚖️ Judges' and Co-ordinators decision is final.</li>
+                <li class="stagger-item">🔄 Organizers may modify rules.</li>
             </ol>
         </div>
     </section>
@@ -332,21 +709,26 @@
         <h2 class="orbit text-3xl text-center mb-16 neon-text uppercase">TECHNO TEASE</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <a href="https://forms.gle/vCxPLgpMBC4uQpNn6" target="_blank" class="block">
-                <div class="rounded-2xl overflow-hidden glass hover:border-cyan-500 transition-all cursor-pointer">
-                    <img src="https://media.istockphoto.com/id/1368098469/photo/multi-racial-group-of-people-working-with-paperwork-on-a-board-room-table-at-a-business.jpg?s=612x612&w=0&k=20&c=4QHkMIKyvTxLr3VrHnclZYXus1N56M6ZhM9-wOOiF7E="
-                        alt="VLSI" class="h-48 w-full object-cover">
-                    <div class="p-6">
-                        <h3 class="orbitron text-xl font-bold mb-2">Tech Script</h3>
-                        <p class="over decoration-emerald-950">
-                            Paper Presentation (Tech script) provides a platform for participants to present innovative
-                            ideas.
-                        </p>
+                <div class="gradient-border float">
+                    <div
+                        class="event-card tilt-card gradient-border-inner rounded-2xl overflow-hidden hover:border-cyan-500 transition-all cursor-pointer">
+                        <img src="https://media.istockphoto.com/id/1368098469/photo/multi-racial-group-of-people-working-with-paperwork-on-a-board-room-table-at-a-business.jpg?s=612x612&w=0&k=20&c=4QHkMIKyvTxLr3VrHnclZYXus1N56M6ZhM9-wOOiF7E="
+                            alt="VLSI" class="h-48 w-full object-cover">
+                        <div class="p-6">
+                            <h3 class="orbitron text-xl font-bold mb-2">Tech Script</h3>
+                            <p class="over decoration-emerald-950">
+                                Paper Presentation (Tech script) provides a platform for participants to present
+                                innovative
+                                ideas.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </a>
 
             <a href="https://forms.gle/MgHZBzsw1mUe3MDi9" target="_blank" class="block">
-                <div class="rounded-2xl overflow-hidden glass hover:border-cyan-500 transition-all">
+                <div
+                    class="event-card tilt-card rounded-2xl overflow-hidden glass hover:border-cyan-500 transition-all">
                     <img src="https://img.freepik.com/premium-photo/highlighted-error-text-colorful-code-background-representing-software-problems-system-attack-concept-3d-rendering_670147-117872.jpg?semt=ais_hybrid&w=740&q=80"
                         alt="VLSI" class="h-48 w-full object-cover">
                     <div class="p-6">
@@ -360,7 +742,7 @@
             </a>
 
             <a href="https://forms.gle/JwxTBiEJC59dob5z6" target="_blank" class="block">
-                <div class="rounded-2xl overflow-hidden glass hover:border-cyan-500 transition-all">
+                <div class="event-card rounded-2xl overflow-hidden glass hover:border-cyan-500 transition-all">
                     <img src="https://cdn.wallpapersafari.com/43/48/9Rabej.jpg" alt="VLSI"
                         class="h-48 w-full object-cover">
                     <div class="p-6">
@@ -372,7 +754,7 @@
             </a>
 
             <a href="https://forms.gle/X6x27qE3cFYrWkB87" target="_blank" class="block">
-                <div class="rounded-2xl overflow-hidden glass hover:border-cyan-500 transition-all">
+                <div class="event-card rounded-2xl overflow-hidden glass hover:border-cyan-500 transition-all">
                     <img src="https://img.freepik.com/free-photo/motherboard-circuit-background_23-2151733763.jpg"
                         alt="VLSI" class="h-48 w-full object-cover">
                     <div class="p-6">
@@ -385,7 +767,7 @@
             </a>
 
             <a href="https://forms.gle/2Z7jJYJBNSWXmoxb6" target="_blank" class="block">
-                <div class="rounded-2xl overflow-hidden glass hover:border-cyan-500 transition-all">
+                <div class="event-card rounded-2xl overflow-hidden glass hover:border-cyan-500 transition-all">
                     <img src="https://media.istockphoto.com/id/1398462038/photo/online-exam-or-test.jpg?s=612x612&w=0&k=20&c=hvaH_2oA0Dm-tpQ8T5JBF_39QF3xhpic38Yi2AngaCE="
                         alt="VLSI" class="h-48 w-full object-cover">
                     <div class="p-6">
@@ -397,14 +779,15 @@
                 </div>
             </a>
 
+        </div>
     </section>
 
-    <section id="events" class="py-20 px-6 max-w-7xl mx-auto">
+    <section id="events-fun" class="py-20 px-6 max-w-7xl mx-auto">
         <h2 class="orbit text-3xl text-center mb-16 neon-text uppercase">Techno Fun</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
             <a href="https://forms.gle/QTeuGb67d72SyY9R9" target="_blank" class="block">
-                <div class="rounded-2xl overflow-hidden glass hover:border-cyan-500 transition-all">
+                <div class="event-card rounded-2xl overflow-hidden glass hover:border-cyan-500 transition-all">
                     <img src="WhatsApp Image 2026-02-01 at 10.45.26 PM.jpeg" alt="VLSI"
                         class="h-48 w-full object-cover">
                     <div class="p-6">
@@ -416,7 +799,7 @@
             </a>
 
             <a href="https://forms.gle/gtvWMsXZhdtZHduo8" target="_blank" class="block">
-                <div class="rounded-2xl overflow-hidden glass hover:border-cyan-500 transition-all">
+                <div class="event-card rounded-2xl overflow-hidden glass hover:border-cyan-500 transition-all">
                     <img src="https://t4.ftcdn.net/jpg/08/34/13/71/360_F_834137131_R1eK8OHPLVA2XQbRt2IKueQW5b6CZVu6.jpg"
                         alt="VLSI" class="h-48 w-full object-cover">
                     <div class="p-6">
@@ -429,7 +812,7 @@
             </a>
 
             <a href="https://forms.gle/E3nUnSUcLYVVPXkP8" target="_blank" class="block">
-                <div class="rounded-2xl overflow-hidden glass hover:border-cyan-500 transition-all">
+                <div class="event-card rounded-2xl overflow-hidden glass hover:border-cyan-500 transition-all">
                     <img src="WhatsApp Image 2026-02-01 at 10.14.24 PM.jpeg" alt="VLSI"
                         class="h-48 w-full object-cover">
                     <div class="p-6">
@@ -442,7 +825,7 @@
             </a>
 
             <a href="https://forms.gle/PLgptSkfkTj8woSv7" target="_blank" class="block">
-                <div class="rounded-2xl overflow-hidden glass hover:border-cyan-500 transition-all">
+                <div class="event-card rounded-2xl overflow-hidden glass hover:border-cyan-500 transition-all">
                     <img src="https://cdn.wallpapersafari.com/91/94/YFje8r.jpg" alt="VLSI"
                         class="h-48 w-full object-cover">
                     <div class="p-6">
@@ -455,7 +838,7 @@
             </a>
 
             <a href="https://forms.gle/Jy2qWkauTHnrAaT88" target="_blank" class="block">
-                <div class="rounded-2xl overflow-hidden glass hover:border-cyan-500 transition-all">
+                <div class="event-card rounded-2xl overflow-hidden glass hover:border-cyan-500 transition-all">
                     <img src="WhatsApp Image 2026-02-01 at 10.57.53 PM.jpeg" alt="VLSI"
                         class="h-48 w-full object-cover">
                     <div class="p-6">
@@ -467,6 +850,7 @@
                 </div>
             </a>
 
+        </div>
     </section>
 
 
@@ -636,24 +1020,79 @@
     <script>
         const cursor = document.querySelector('.tech-cursor');
         const trailContainer = document.getElementById('trail-container');
+        let lastTrailTime = 0;
 
         document.addEventListener('mousemove', (e) => {
             // Main cursor follows smoothly
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
 
-            // Create trail particle
-            const trail = document.createElement('div');
-            trail.className = 'cursor-trail';
-            trail.style.left = e.clientX + 'px';
-            trail.style.top = e.clientY + 'px';
+            // Throttle trail creation to every 50ms for better performance
+            const now = Date.now();
+            if (now - lastTrailTime > 50) {
+                lastTrailTime = now;
 
-            trailContainer.appendChild(trail);
+                const trail = document.createElement('div');
+                trail.className = 'cursor-trail';
+                trail.style.left = e.clientX + 'px';
+                trail.style.top = e.clientY + 'px';
 
-            // Remove after animation
-            setTimeout(() => {
-                trail.remove();
-            }, 600);
+                trailContainer.appendChild(trail);
+
+                // Remove after animation
+                setTimeout(() => trail.remove(), 600);
+            }
+        });
+
+        // Scroll-triggered animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        window.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('section').forEach(section => {
+                observer.observe(section);
+            });
+
+            // Show hero section immediately
+            document.querySelector('#home')?.classList.add('visible');
+
+            // Staggered animation for rule items
+            const ruleItems = document.querySelectorAll('.rule-item');
+            const ruleObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, index * 100);
+                        ruleObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            ruleItems.forEach(item => ruleObserver.observe(item));
+
+            // Generate background particles
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.width = particle.style.height = (Math.random() * 4 + 2) + 'px';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
         });
     </script>
 
